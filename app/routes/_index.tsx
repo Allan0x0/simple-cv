@@ -1,138 +1,637 @@
-import type { MetaFunction } from "@remix-run/node";
+import { IconMail, IconMapPin, IconPhone, IconPlus, IconPrinter, IconWorldWww } from "@tabler/icons-react";
+import React, { ComponentProps, ReactNode, useState } from "react";
+import { twMerge } from "tailwind-merge";
+import PlaceholderImg from "~/../public/placeholder.jpg";
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+export default function CoverLetter() {
+  const [headshot, setHeadshot] = useState('');
+  const [phone, setPhone] = useState('+263 788 707 757');
+  const [email, setEmail] = useState('anita.simoyi@yahoo.com');
+  const [address, setAddress] = useState('Harare, Zimbabwe');
+  const [website, setWebsite] = useState('');
+
+  const [name, setName] = useState('Anita Simoyi');
+  const [title, setTitle] = useState('Draughtswoman');
+  const [profile, setProfile] = useState([
+    'Highly motivated and detail-oriented Draughtswoman with years of experience in design and',
+    'engineering across diverse industries, including timber framing, architecture, and mechanical',
+    'engineering. Proven ability to master new software and technologies quickly, as demonstrated by',
+    'rapid progression in MiTek skills from beginner to estimator and truss designer. Adept at',
+    'collaborating with cross-functional teams to deliver high-quality designs and accurate',
+    'documentation. Seeking a challenging role where I can contribute my expertise and continue to',
+    'grow professionally.',
+  ].join(" "));
+  const [skills, setSkills] = useState([
+    'Software Proficiency: AutoCAD, Revit, Inventor, Advanced Steel, Solidworks, MiTek 20/20, MiTek Pamir, Unilam Truss4',
+    'Design & Engineering: 2D and 3D drafting and design, Timber truss design, Shop drawings, Engineering calculations, Roof layouts, Site inspections',
+    'Estimation & Quoting: Project assessment, Material take-offs, Cost analysis, Quotation generation',
+    'Inventory Management: Stock control, Inventory tracking, Dispatch coordination',
+    "Other: Microsoft Office Suite, Excellent communication and interpersonal skills, Ability to work independently and under pressure, Class 2 driver's license",
+  ]);
+  const [projects, setProjects] = useState<string[]>([]);
+  const [education, setEducation] = useState({
+    period: '2007',
+    institution: 'Chinhoyi University of Technology',
+    degree: 'Advanced Diploma in Mechanical Engineering'
+  });
+  const [experiences, setExperiences] = useState([
+    {
+      company: 'Allied Timbers Gweru',
+      job: 'Estimator',
+      time: 'July 2023 - Present',
+      points: [
+        "Generated accurate quotations for [Number] timber truss projects using MiTek software, resulting in [Quantifiable result, e.g., increased sales by X% or secured Y new clients].",
+        "Designed and engineered a variety of roof trusses in compliance with MiTek standards, ensuring structural integrity and cost-effectiveness.",
+        "Conducted on-site measurements and inspections to assess project requirements and ensure accurate truss fabrication and installation.",
+        "Produced detailed production sheets, roof layouts, and other essential site documentation for efficient project execution.",
+        "Managed timber and MiTek product inventory, ensuring optimal stock levels and timely procurement."
+      ]
+    },
+    {
+      company: 'Hi-Tech Roofing',
+      job: 'Timber Truss Designer (Junior Level)',
+      time: 'Feb 2022 - June 2022',
+      points: [
+        "Completed on-the-job training in MiTek 20/20 software, quickly progressing from basic design to independent design of standard trusses.",
+        "Instructed carpenters and assemblers on truss assembly based on MiTek designs, ensuring accurate interpretation of shop drawings.",
+        "Maintained digital and physical libraries for drawings and documentation, improving organization and accessibility of project information."
+      ]
+    },
+    {
+      company: 'Architectural Design Services (Pvt) Ltd',
+      job: 'Architectural Drafter (Part-time)',
+      time: 'Sept 2021 - Feb 2022',
+      points: [
+        "Designed plans for residential buildings using AutoCAD and Revit, creating detailed floor plans, elevations, and sectional views.",
+        "Specified dimensions, materials, and construction procedures, ensuring adherence to architectural standards and building codes."
+      ]
+    },
+    {
+      company: 'Ramkat Trailers',
+      job: 'Solidworks Designer',
+      time: 'Feb 2018 - Nov 2018',
+      points: [
+        "Created 3D models of truck bodies and trailers using Solidworks, contributing to the design and manufacturing process.",
+        "Converted customer drawings into 3D models, facilitating efficient communication and collaboration."
+      ]
+    },
+    {
+      company: 'Atlas Starr Technologies',
+      job: 'Mechanical Drafter',
+      time: 'Mar 2015 - Oct 2017',
+      points: [
+        "Prepared working drawings for fluid mixing equipment according to ISO standards, ensuring accuracy and compliance with manufacturing requirements.",
+        "Provided CAD support for new product development and product enhancement projects."
+      ]
+    },
+    {
+      company: 'Indo-Zim Technology Centre',
+      job: 'Mechanical Technician',
+      time: 'Jan 2009 - June 2014',
+      points: [
+        "Designed plastic injection molds using Solidworks and AutoCAD, contributing to the manufacturing of plastic components.",
+        "Participated in the installation of equipment in engineering workshops across the country."
+      ]
+    }
+  ]);
+
+  function addPoint(index: number) {
+    setExperiences(prev => {
+      return prev.map((exp, i) => {
+        if (i === index) {
+          return { ...exp, points: [...exp.points, ""] }
+        }
+        return exp;
+      })
+    })
+  }
+  function removeWorkExperience(index: number) {
+    setExperiences(prev => prev.filter((exp, i) => i !== index));
+  }
+
+  function handlePrint() {
+    window.print();
+  }
+
+  return (
+    <div className="min-h-screen flex flex-row items-stretch bg-stone-200 p-8 px-2 pb-2 gap-6 print:p-0 text-stone-800 text-sm print:text-xs tracking-wide">
+      <div className="h-full max-h-screen w-full md:w-80% lg:w-[70%] print:w-full flex flex-col items-stretch relative border-2 border-t-[#163A5F] rounded-md">
+        <div className={twMerge(
+          "absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-[#163A5F] border-2",
+          "flex flex-row items-center px-1 py-1 space-x-4 rounded-full shadow-xl print:hidden"
+        )}>
+          <div className="rounded-full px-4 py-1">
+            <span className="text-[#163A5F] text-sm font-semibold">Simple CV</span>
+          </div>
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="rounded-full p-2 px-4 text-sm text-white bg-[#163A5F] flex flex-row items-center gap-2 shadow-xl"
+          >
+            <IconPrinter size={20} />
+            <span>Print</span>
+          </button>
+        </div>
+        <div className="grow grid grid-cols-3  bg-white rounded-md print:rounded-none overflow-auto shadow-xl">
+          <div className="flex flex-col items-stretch bg-[#163A5F] pt-12 text-white p-6 gap-10">
+            <div className="flex flex-col justify-center items-center">
+              <Headshot imageUrl={headshot} onImageUpload={setHeadshot} />
+            </div>
+            <ContactDetails phone={phone} email={email} address={address} website={website} />
+            <Skills skills={skills} />
+            {!!projects.length && (
+              <Projects projects={projects} />
+            )}
+            <Education education={education} />
+          </div>
+          <div className="col-span-2 flex flex-col items-stretch px-6 py-8 gap-12">
+            <div className="flex flex-col items-start gap-1 uppercase pt-16 print:pt-12 px-4">
+              <h1 className="text-4xl"><b>{name.split(' ')[0]}</b> {name.split(' ')[1]}</h1>
+              <h2 className="text-xl font-light text-stone-500">{title}</h2>
+              <div className="h-1 w-16 bg-[#163A5F]" />
+            </div>
+            <div className="flex flex-col items-start gap-8 pt-8 px-4">
+              <Profile profile={profile} />
+              <WorkExperience title={title} experiences={experiences} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={twMerge(
+        "print:hidden flex flex-col items-stretch lg:w-[30%] md:w-[20%] rounded-md bg-white",
+        "border-2 border-t-[#163A5F] shadow-xl relative max-h-screen"
+      )}>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-[#163A5F] rounded-full px-6 py-2 shadow-xl">
+          <span className="text-[#163A5F] font-semibold">Enter Your Details</span>
+        </div>
+        <div className="h-full flex flex-col items-stretch overflow-auto p-6 gap-4">
+          <EditableField label="Name" value={name} onChange={setName} />
+          <EditableField label="Title" value={title} onChange={setTitle} />
+          <EditableField label="Phone" value={phone} onChange={setPhone} />
+          <EditableField label="Email" value={email} onChange={setEmail} />
+          <EditableField label="Address" value={address} onChange={setAddress} />
+          <EditableField label="Website" value={website} onChange={setWebsite} />
+          <EditableTextArea label="Profile" value={profile} onChange={setProfile} />
+          <EditableList label="Skills" items={skills} onChange={setSkills} />
+          <EditableList label="Projects" items={projects} onChange={setProjects} />
+          <EditableEducation education={education} onChange={setEducation} />
+          <EditableExperiences experiences={experiences} onChange={setExperiences} addPoint={addPoint} removeItem={removeWorkExperience} />
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+type EditableFieldProps = {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
 };
 
-export default function Index() {
+function EditableField({ label, value, onChange }: EditableFieldProps) {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-16">
-        <header className="flex flex-col items-center gap-9">
-          <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Welcome to <span className="sr-only">Remix</span>
-          </h1>
-          <div className="h-[144px] w-[434px]">
-            <img
-              src="/logo-light.png"
-              alt="Remix"
-              className="block w-full dark:hidden"
+    <div className="flex flex-col">
+      <label className="font-semibold">{label}</label>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="p-2 border rounded bg-black/10"
+      />
+    </div>
+  );
+}
+
+type EditableTextAreaProps = {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+};
+
+function EditableTextArea({ label, value, onChange }: EditableTextAreaProps) {
+  return (
+    <div className="flex flex-col">
+      <label className="font-semibold">{label}</label>
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="p-2 border rounded bg-black/10"
+        rows={4}
+      />
+    </div>
+  );
+}
+
+type EditableListProps = {
+  label: string;
+  items: string[];
+  onChange: (items: string[]) => void;
+};
+
+function EditableList({ label, items, onChange }: EditableListProps) {
+  const handleItemChange = (index: number, value: string) => {
+    const newItems = [...items];
+    newItems[index] = value;
+    onChange(newItems);
+  };
+
+  const addItem = () => {
+    onChange([...items, ""]);
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="font-semibold">{label}</label>
+      {items.map((item, index) => (
+        <input
+          key={index}
+          type="text"
+          value={item}
+          onChange={(e) => handleItemChange(index, e.target.value)}
+          className="p-2 border rounded bg-black/10"
+        />
+      ))}
+      <button
+        onClick={addItem}
+        className="mt-2 p-2 bg-blue-500 text-white rounded"
+      >
+        Add Item
+      </button>
+    </div>
+  );
+}
+
+type EditableEducationProps = {
+  education: {
+    period: string;
+    institution: string;
+    degree: string;
+  };
+  onChange: (education: {
+    period: string;
+    institution: string;
+    degree: string;
+  }) => void;
+};
+
+function EditableEducation({ education, onChange }: EditableEducationProps) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor="education-period" className="font-semibold">Education</label>
+      <input
+        id="education-period"
+        type="text"
+        value={education.period}
+        onChange={(e) => onChange({ ...education, period: e.target.value })}
+        className="p-2 border rounded bg-black/10"
+        placeholder="Period"
+      />
+      <input
+        type="text"
+        value={education.institution}
+        onChange={(e) => onChange({ ...education, institution: e.target.value })}
+        className="p-2 border rounded bg-black/10"
+        placeholder="Institution"
+      />
+      <input
+        type="text"
+        value={education.degree}
+        onChange={(e) => onChange({ ...education, degree: e.target.value })}
+        className="p-2 border rounded bg-black/10"
+        placeholder="Degree"
+      />
+    </div>
+  );
+}
+
+type Experience = {
+  company: string;
+  time: string;
+  job: string;
+  points: string[];
+};
+
+type EditableExperiencesProps = {
+  experiences: Experience[];
+  onChange: (experiences: Experience[]) => void;
+  addPoint: (index: number) => void;
+  removeItem: (index: number) => void;
+};
+
+function EditableExperiences({ experiences, onChange, addPoint, removeItem }: EditableExperiencesProps) {
+  const handleExperienceChange = (
+    index: number,
+    field: keyof Experience,
+    value: string | string[]
+  ) => {
+    const newExperiences = [...experiences];
+    newExperiences[index][field] = value as never;
+    onChange(newExperiences);
+  };
+
+  const addExperience = () => {
+    onChange([...experiences, { company: "", time: "", job: "", points: [""] }]);
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor="work-experience" className="font-semibold">Work Experience</label>
+      <div className="flex flex-col items-stretch gap-4">
+        {experiences.map((exp, index) => (
+          <div key={index} className="flex flex-col gap-2">
+            <input
+              type="text"
+              value={exp.company}
+              onChange={(e) => handleExperienceChange(index, "company", e.target.value)}
+              className="p-2 border rounded bg-black/10"
+              placeholder="Company"
             />
-            <img
-              src="/logo-dark.png"
-              alt="Remix"
-              className="hidden w-full dark:block"
+            <input
+              type="text"
+              value={exp.job}
+              onChange={(e) => handleExperienceChange(index, "job", e.target.value)}
+              className="p-2 border rounded bg-black/10"
+              placeholder="Job Title"
             />
-          </div>
-        </header>
-        <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
-          <p className="leading-6 text-gray-700 dark:text-gray-200">
-            What&apos;s next?
-          </p>
-          <ul>
-            {resources.map(({ href, text, icon }) => (
-              <li key={href}>
-                <a
-                  className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {icon}
-                  {text}
-                </a>
-              </li>
+            <input
+              type="text"
+              value={exp.time}
+              onChange={(e) => handleExperienceChange(index, "time", e.target.value)}
+              className="p-2 border rounded bg-black/10"
+              placeholder="Time Period"
+            />
+            {exp.points.map((point, pIndex) => (
+              <div key={pIndex} className="flex flex-row items-center gap-2">
+                <input
+                  type="text"
+                  value={point}
+                  onChange={(e) => {
+                    const newPoints = [...exp.points];
+                    newPoints[pIndex] = e.target.value;
+                    handleExperienceChange(index, "points", newPoints);
+                  }}
+                  className="p-2 border border-l-blue-500 border-l-2 rounded bg-black/10 grow"
+                  placeholder="Point"
+                />
+              </div>
             ))}
-          </ul>
-        </nav>
+            <div className="flex flex-row items-center">
+              <button
+                type="button"
+                onClick={() => addPoint(index)}
+                className="bg-blue-500/20 rounded-md px-2 py-1 flex flex-row justify-center items-center gap-2"
+              >
+                <IconPlus className="text-blue-500" />
+                <span>Add Point</span>
+              </button>
+              <div className='grow' />
+              <button
+                type="button"
+                onClick={() => removeItem(index)}
+                className="bg-red-500/20 rounded-md px-2 py-1 flex flex-row justify-center items-center gap-2"
+              >
+                <IconPlus className="text-red-500" />
+                <span>Remove Item</span>
+              </button>
+            </div>
+          </div>
+        ))}
+        <button
+          onClick={addExperience}
+          className="mt-2 p-2 bg-blue-500 text-white rounded"
+        >
+          Add Experience
+        </button>
       </div>
     </div>
   );
 }
 
-const resources = [
-  {
-    href: "https://remix.run/start/quickstart",
-    text: "Quick Start (5 min)",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M8.51851 12.0741L7.92592 18L15.6296 9.7037L11.4815 7.33333L12.0741 2L4.37036 10.2963L8.51851 12.0741Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://remix.run/start/tutorial",
-    text: "Tutorial (30 min)",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M4.561 12.749L3.15503 14.1549M3.00811 8.99944H1.01978M3.15503 3.84489L4.561 5.2508M8.3107 1.70923L8.3107 3.69749M13.4655 3.84489L12.0595 5.2508M18.1868 17.0974L16.635 18.6491C16.4636 18.8205 16.1858 18.8205 16.0144 18.6491L13.568 16.2028C13.383 16.0178 13.0784 16.0347 12.915 16.239L11.2697 18.2956C11.047 18.5739 10.6029 18.4847 10.505 18.142L7.85215 8.85711C7.75756 8.52603 8.06365 8.21994 8.39472 8.31453L17.6796 10.9673C18.0223 11.0653 18.1115 11.5094 17.8332 11.7321L15.7766 13.3773C15.5723 13.5408 15.5554 13.8454 15.7404 14.0304L18.1868 16.4767C18.3582 16.6481 18.3582 16.926 18.1868 17.0974Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://remix.run/docs",
-    text: "Remix Docs",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M9.99981 10.0751V9.99992M17.4688 17.4688C15.889 19.0485 11.2645 16.9853 7.13958 12.8604C3.01467 8.73546 0.951405 4.11091 2.53116 2.53116C4.11091 0.951405 8.73546 3.01467 12.8604 7.13958C16.9853 11.2645 19.0485 15.889 17.4688 17.4688ZM2.53132 17.4688C0.951566 15.8891 3.01483 11.2645 7.13974 7.13963C11.2647 3.01471 15.8892 0.951453 17.469 2.53121C19.0487 4.11096 16.9854 8.73551 12.8605 12.8604C8.73562 16.9853 4.11107 19.0486 2.53132 17.4688Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 24 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M15.0686 1.25995L14.5477 1.17423L14.2913 1.63578C14.1754 1.84439 14.0545 2.08275 13.9422 2.31963C12.6461 2.16488 11.3406 2.16505 10.0445 2.32014C9.92822 2.08178 9.80478 1.84975 9.67412 1.62413L9.41449 1.17584L8.90333 1.25995C7.33547 1.51794 5.80717 1.99419 4.37748 2.66939L4.19 2.75793L4.07461 2.93019C1.23864 7.16437 0.46302 11.3053 0.838165 15.3924L0.868838 15.7266L1.13844 15.9264C2.81818 17.1714 4.68053 18.1233 6.68582 18.719L7.18892 18.8684L7.50166 18.4469C7.96179 17.8268 8.36504 17.1824 8.709 16.4944L8.71099 16.4904C10.8645 17.0471 13.128 17.0485 15.2821 16.4947C15.6261 17.1826 16.0293 17.8269 16.4892 18.4469L16.805 18.8725L17.3116 18.717C19.3056 18.105 21.1876 17.1751 22.8559 15.9238L23.1224 15.724L23.1528 15.3923C23.5873 10.6524 22.3579 6.53306 19.8947 2.90714L19.7759 2.73227L19.5833 2.64518C18.1437 1.99439 16.6386 1.51826 15.0686 1.25995ZM16.6074 10.7755L16.6074 10.7756C16.5934 11.6409 16.0212 12.1444 15.4783 12.1444C14.9297 12.1444 14.3493 11.6173 14.3493 10.7877C14.3493 9.94885 14.9378 9.41192 15.4783 9.41192C16.0471 9.41192 16.6209 9.93851 16.6074 10.7755ZM8.49373 12.1444C7.94513 12.1444 7.36471 11.6173 7.36471 10.7877C7.36471 9.94885 7.95323 9.41192 8.49373 9.41192C9.06038 9.41192 9.63892 9.93712 9.6417 10.7815C9.62517 11.6239 9.05462 12.1444 8.49373 12.1444Z"
-          strokeWidth="1.5"
-        />
-      </svg>
-    ),
-  },
-];
+interface HeadshotProps {
+  imageUrl: string;
+  onImageUpload: (image: string) => void;
+}
+function Headshot({ imageUrl, onImageUpload }: HeadshotProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsLoading(true);
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      try {
+        const result = event.target?.result as string;
+        onImageUpload(result);
+      } catch (error) {
+        window.alert("Failed to upload image. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    reader.onerror = () => {
+      window.alert("An error occurred while reading the file. Please try again.");
+      setIsLoading(false);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <>
+      <label htmlFor="headshot-upload" className="cursor-pointer">
+        <div className="flex flex-col justify-center items-center relative group rounded-full">
+          <div className={twMerge(
+            "absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-black/60",
+            "group-hover:flex flex-col justify-center items-center p-4 rounded-full w-2/3 hidden",
+          )}>
+            <span className="text-white">Change photo</span>
+          </div>
+          <img
+            src={imageUrl || PlaceholderImg}
+            alt="Headshot"
+            className={twMerge(
+              "w-2/3 aspect-square flex flex-col justify-center items-center",
+              "rounded-full bg-white p-1 object-cover",
+              isLoading ? "opacity-50" : ""
+            )}
+          />
+          {isLoading && <span className="text-sm text-gray-500">Uploading...</span>}
+        </div>
+      </label>
+      <input
+        id="headshot-upload"
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="hidden"
+      />
+    </>
+  );
+}
+
+interface SkillsProps {
+  skills: string[];
+}
+function Skills({ skills }: SkillsProps) {
+  return (
+    <Section>
+      <SectionTitle color="white">Skills</SectionTitle>
+      <ul className="list-none flex flex-col items-stretch gap-4">
+        {skills.map((skill, index) => (
+          <li key={index}>&middot; {skill}</li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+interface ProjectsProps {
+  projects: string[];
+}
+function Projects({ projects }: ProjectsProps) {
+  return (
+    <Section>
+      <SectionTitle color="white">Projects</SectionTitle>
+      <ul className="list-none flex flex-col items-stretch gap-4">
+        {projects.map((project, index) => (
+          <li key={index}>&middot; {project}</li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+interface EducationProps {
+  education: { period: string; institution: string; degree: string };
+}
+function Education({ education }: EducationProps) {
+  return (
+    <Section>
+      <SectionTitle color="white">Education</SectionTitle>
+      <div className="flex flex-col items-stretch gap-2">
+        <span>{education.period}</span>
+        <span className="font-semibold">{education.institution}</span>
+        <span>{education.degree}</span>
+      </div>
+    </Section>
+  );
+}
+
+interface ContactDetailsProps {
+  phone: string;
+  email: string;
+  address: string;
+  website: string;
+}
+function ContactDetails({ phone, email, address, website }: ContactDetailsProps) {
+  const contactDetails: [ReactNode, string][] = [
+    [<IconPhone key="phone" size={20} className="text-white" />, phone],
+    [<IconMail key="email" size={20} className="text-white" />, email],
+    [<IconMapPin key="home" size={20} className="text-white" />, address],
+    website ? [<IconWorldWww key="title" size={20} className="text-white" />, website] : undefined,
+  ].filter(Boolean) as [ReactNode, string][];
+  return (
+    <Section>
+      <SectionTitle color="white">Contact</SectionTitle>
+      {contactDetails.map(([Icon, label], index) => (
+        <div key={index} className="flex flex-row items-center gap-4">
+          <div className="flex flex-col justify-center items-center shrink-0">
+            {Icon}
+          </div>
+          <span>{label}</span>
+        </div>
+      ))}
+    </Section>
+  );
+}
+
+interface SectionProps extends ComponentProps<'div'> { }
+function Section(props: SectionProps) {
+  const { children, className, ...rest } = props;
+  return (
+    <div className={twMerge("flex flex-col items-stretch gap-4", className)} {...rest}>
+      {children}
+    </div>
+  );
+}
+
+interface SectionTitleProps extends ComponentProps<'div'> {
+  color: 'blue' | 'white';
+}
+function SectionTitle(props: SectionTitleProps) {
+  const { children, className, color, ...rest } = props;
+
+  const borderColor = twMerge(color === 'blue' ? 'border-[#163A5F]' : 'border-white');
+  const textColor = twMerge(color === 'blue' ? 'text-[#163A5F]' : 'text-white');
+
+  return (
+    <div className={twMerge("border-b border-white py-1", borderColor, className)} {...rest}>
+      <span className={twMerge('text-xl font-semibold uppercase', textColor)}>
+        {children}
+      </span>
+    </div>
+  );
+}
+
+interface ProfileProps {
+  profile: string;
+}
+function Profile({ profile }: ProfileProps) {
+  return (
+    <Section>
+      <SectionTitle color="blue">Profile</SectionTitle>
+      <span className="leading-relaxed">{profile}</span>
+    </Section>
+  );
+}
+
+interface WorkExperienceProps {
+  experiences: { company: string; job: string; time: string; points: string[] }[];
+  title: string, 
+}
+function WorkExperience({ experiences, title }: WorkExperienceProps) {
+  return (
+    <Section>
+      <SectionTitle color="blue">Work Experience</SectionTitle>
+      <div className="flex flex-col items-stretch gap-6">
+        {experiences.map((exp, index) => (
+          <ExperienceItem key={index} title={title} {...exp} />
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+interface ExperienceItemProps extends ComponentProps<'div'> {
+  company: string;
+  job: string;
+  title: string;
+  time: string;
+  points: ReactNode[];
+}
+function ExperienceItem(props: ExperienceItemProps) {
+  const { company, job, title, time, points } = props;
+  return (
+    <div className="flex flex-col items-stretch gap-2">
+      <div className="flex flex-row items-end gap-2">
+        <div className="flex flex-col items-start">
+          <span className="text-base print:text-sm font-semibold">{company}</span>
+          <span className="text-stone-500">{job || title}</span>
+        </div>
+        <div className="grow" />
+        <span className="text-stone-500 text-end">{time}</span>
+      </div>
+      <ul className="list-disc flex flex-col items-stretch gap-2">
+        {points.map((point, index) => (
+          <li key={index}>{point}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
